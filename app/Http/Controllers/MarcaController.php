@@ -28,12 +28,18 @@ class MarcaController extends Controller
     public function show(int $id)
     {
         $marca = $this->marca->find($id);
+        if ($marca === null) {
+            return ['msg' => 'Marca não encontrada.'];
+        }
         return $marca;
     }
 
     public function update(Request $request, int $id)
     {
         $marca = $this->marca->find($id);
+        if ($marca === null) {
+            return ['msg' => 'Marca não encontrada.'];
+        }
         $marca->update($request->all());
         return $marca;
     }
@@ -41,6 +47,9 @@ class MarcaController extends Controller
     public function destroy(int $id)
     {
         $marca = $this->marca->find($id);
+        if ($marca === null) {
+            return ['msg' => 'Marca não encontrada'];
+        }
         $marca->delete();
         return [
             'msg' => 'Marca foi removida com sucesso.'
