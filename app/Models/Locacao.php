@@ -9,6 +9,8 @@ class Locacao extends Model
 {
     use HasFactory;
 
+    protected $table  = 'locacoes';
+
     public function cliente()
     {
         return $this->belongsTo(Cliente::class);
