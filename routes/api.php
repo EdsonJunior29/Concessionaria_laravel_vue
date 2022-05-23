@@ -32,5 +32,6 @@ Route::prefix('/marca')->group(function () {
     Route::post('/', [MarcaController::class, 'store']);
     Route::get('/{marca}', [MarcaController::class, 'show']);
     Route::put('/{marca}', [MarcaController::class, 'update']);
+    Route::patch('/{marca}', [MarcaController::class, 'update']);
     Route::delete('/{marca}', [MarcaController::class, 'destroy']);
 });

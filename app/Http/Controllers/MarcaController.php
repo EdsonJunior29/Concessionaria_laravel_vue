@@ -44,7 +44,17 @@ class MarcaController extends Controller
             return response()->json(['msg' => 'Marca não encontrada.'], 404);
         }
 
-        $request->validate($marca->rules(), $marca->feedback());
+        if ($request->method() === 'PATCH') {
+            $regrasDinamicas = array();
+
+            foreach ($marca->rules() as $input => $regras) {
+                if (array_key_exists($input, $request->all())) {
+                    $regrasDinamicas[$input] = $regras;
+                }
+            }
+        } else {
+            $request->validate($marca->rules(), $marca->feedback());
+        }
 
         $marca->update($request->all());
         return response()->json($marca, 204);
