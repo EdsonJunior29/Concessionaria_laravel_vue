@@ -83,15 +83,10 @@ class ModeloController extends Controller
         $imagem = $request->file('imagem');
         $imagem_urn = $imagem->store('imagens/modelos', 'public');
 
-        $modelo->update([
-            'marca_id' => $request->marca_id,
-            'nome' => $request->nome,
-            'imagem' => $imagem_urn,
-            'numero_protas' => $request->numero_protas,
-            'lugares' => $request->lugares,
-            'air_bag' => $request->air_bag,
-            'abs' => $request->abs
-        ]);
+        $modelo->fill($request->all());
+        $modelo->imagem = $imagem_urn;
+
+        $modelo->save();
 
         return response()->json($modelo, 204);
     }
