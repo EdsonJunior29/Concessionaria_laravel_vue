@@ -15,8 +15,7 @@ class ModeloController extends Controller
 
     public function index()
     {
-        $modelo = $this->modelo->all();
-        return response()->json($modelo, 200);
+        return response()->json($this->modelo->with('marca')->get(), 200);
     }
 
     public function store(Request $request)
