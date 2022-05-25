@@ -41,7 +41,7 @@ class ModeloController extends Controller
 
     public function show(int $id)
     {
-        $modelo = $this->modelo->find($id);
+        $modelo = $this->modelo->with('marca')->find($id);
         if ($modelo === null) {
             return response()->json(['msg' => 'Marca não encontrada.'], 404);
         }
