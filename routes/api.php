@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\ModeloController;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,4 +35,13 @@ Route::prefix('/marca')->group(function () {
     Route::put('/{marca}', [MarcaController::class, 'update']);
     Route::patch('/{marca}', [MarcaController::class, 'update']);
     Route::delete('/{marca}', [MarcaController::class, 'destroy']);
+});
+
+Route::prefix('/modelo')->group(function () {
+    Route::get('/', [ModeloController::class, 'index']);
+    Route::post('/', [ModeloController::class, 'store']);
+    Route::get('/{modelo}', [ModeloController::class, 'show']);
+    Route::put('/{modelo}', [ModeloController::class, 'update']);
+    Route::patch('/{modelo}', [ModeloController::class, 'update']);
+    Route::delete('/{modelo}', [ModeloController::class, 'destroy']);
 });
