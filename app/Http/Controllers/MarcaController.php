@@ -45,6 +45,11 @@ class MarcaController extends Controller
 
     public function update(Request $request, int $id)
     {
+        /*Para atualizar uma class que possui arquivo,
+         temos que utilizar o método Post passando o id.
+         E adicionar no body da requisição _method(key) put ou patch(value).
+        */
+
         $marca = $this->marca->find($id);
 
         if ($marca === null) {
@@ -63,7 +68,14 @@ class MarcaController extends Controller
             $request->validate($marca->rules(), $marca->feedback());
         }
 
-        $marca->update($request->all());
+        $imagem = $request->file('imagem');
+        $imagem_urn = $imagem->store('imagens', 'public');
+
+        $marca->update([
+            'nome' => $request->nome,
+            'imagem' => $imagem_urn
+        ]);
+
         return response()->json($marca, 204);
     }
 
