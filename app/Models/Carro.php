@@ -9,7 +9,14 @@ class Carro extends Model
 {
     use HasFactory;
 
-    public function modelos()
+    protected $fillable = [
+        'modelo_id',
+        'placa',
+        'disponivel',
+        'km'
+    ];
+
+    public function modelo()
     {
         return $this->belongsTo(Modelo::class);
     }
@@ -17,5 +24,15 @@ class Carro extends Model
     public function locacoes()
     {
         return $this->hasMany(Locacao::class);
+    }
+
+    public function rules()
+    {
+        return [
+            'modelo_id' => 'exists:modelos,id',
+            'placa' => 'required',
+            'disponivel' => 'required',
+            'km' => 'required'
+        ];
     }
 }
