@@ -31,7 +31,6 @@ class ModeloController extends Controller
                  $c = explode(':', $condicoes);
                  $modelos = $modelos->where($c[0], $c[1], $c[2]);
             }
-
         }
 
         if ($request->has('atributos')) {
