@@ -4,7 +4,7 @@ use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\ModeloController;
 use App\Http\Controllers\CarroController;
-use App\Models\Cliente;
+use App\Http\Controllers\LocacaoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -57,4 +57,13 @@ Route::prefix('/carro')->group(function () {
     Route::put('/{carro}', [CarroController::class, 'update']);
     Route::patch('/{carro}', [CarroController::class, 'update']);
     Route::delete('/{carro}', [CarroController::class, 'destroy']);
+});
+
+Route::prefix('/locacao')->group(function () {
+    Route::get('/', [LocacaoController::class, 'index']);
+    Route::post('/', [LocacaoController::class, 'store']);
+    Route::get('/{locacao}', [LocacaoController::class, 'show']);
+    Route::put('/{locacao}', [LocacaoController::class, 'update']);
+    Route::patch('/{locacao}', [LocacaoController::class, 'update']);
+    Route::delete('/{locacao}', [LocacaoController::class, 'destroy']);
 });
