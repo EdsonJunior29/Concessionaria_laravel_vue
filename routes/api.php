@@ -26,7 +26,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::prefix('/cliente')->group(function () {
     Route::get('/', [ClienteController::class, 'index']);
     Route::post('/', [ClienteController::class, 'store']);
-    Route::delete('/{id}', [ClienteController::class, 'destroy']);
+    Route::get('/{cliente}', [ClienteController::class, 'show']);
+    Route::put('/{cliente}', [ClienteController::class, 'update']);
+    Route::patch('/{cliente}', [ClienteController::class, 'update']);
+    Route::delete('/{cliente}', [ClienteController::class, 'destroy']);
 });
 
 Route::prefix('/marca')->group(function () {

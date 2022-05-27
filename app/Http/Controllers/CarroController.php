@@ -88,7 +88,7 @@ class CarroController extends Controller
 
     public function destroy(int $id)
     {
-        $carro = $this->marca->find($id);
+        $carro = $this->carro->find($id);
 
         if ($carro === null) {
             return response()->json(['msg' => 'carro não encontrada.'], 404);
