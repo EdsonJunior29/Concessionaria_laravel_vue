@@ -9,8 +9,19 @@ class Cliente extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'nome'
+    ];
+
     public function locacaoes()
     {
         return $this->hasMany(Locacao::class);
+    }
+
+    public function rules()
+    {
+        return [
+            'nome' => 'required|min:3'
+        ];
     }
 }
