@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('/cliente')->group(function () {
-    Route::get('/', [ClienteController::class, 'index']);
+    Route::get('/', [ClienteController::class, 'index'])->middleware('jwt.auth');
     Route::post('/', [ClienteController::class, 'store']);
     Route::get('/{cliente}', [ClienteController::class, 'show']);
     Route::put('/{cliente}', [ClienteController::class, 'update']);
