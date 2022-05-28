@@ -47,7 +47,6 @@ class LocacaoController extends Controller
         return response()->json($locacao, 201);
     }
 
-
     public function show(int $id)
     {
         $locacao  = $this->locacao->find($id);
