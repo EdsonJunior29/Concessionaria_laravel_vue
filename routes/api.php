@@ -5,6 +5,7 @@ use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\ModeloController;
 use App\Http\Controllers\CarroController;
 use App\Http\Controllers\LocacaoController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -67,3 +68,8 @@ Route::prefix('/locacao')->group(function () {
     Route::patch('/{locacao}', [LocacaoController::class, 'update']);
     Route::delete('/{locacao}', [LocacaoController::class, 'destroy']);
 });
+
+Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout']);
+Route::post('refresh', [AuthController::class, 'refresh']);
+Route::post('me', [AuthController::class, 'me']);
