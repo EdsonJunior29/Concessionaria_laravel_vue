@@ -90,6 +90,7 @@ export default{
                        document.cookie = 'token='+data.token //adicionando o token aos cookie da aplicação com o nome da chave token
                    }
                 })
+                e.target.submit()
         }
     }
 }
