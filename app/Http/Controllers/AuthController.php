@@ -24,7 +24,9 @@ class AuthController extends Controller
 
     public function logout()
     {
-        return 'logout....';
+        //Responsável por invalidar o JWT.
+        auth('api')->logout();
+        return response()->json(['msg' => 'Logout foi realizado com sucesso!']);
     }
 
     public function refresh()
