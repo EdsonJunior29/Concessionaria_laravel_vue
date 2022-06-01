@@ -39,17 +39,17 @@
             <!--Fim do card de busca-->
 
             <!--Início do card de Listagem de Marcas-->
-             <div class="card">
-                <div class="card-header">Listagem de Marcas</div>
 
-                <div class="card-body">
+            <card-component titulo="Listagem de Marcas">
+                <template v-slot:conteudo>
                     <table-component></table-component>
-                </div>
+                </template>
 
-                <div class="card-footer">
-                    <button type="button" class="btn btn-primary btn-sm ">Adicionar</button>
-                </div>
-            </div>
+                <template v-slot:rodape>
+                     <button type="button" class="btn btn-primary btn-sm ">Adicionar</button>
+                </template>
+            </card-component>
+
             <!--Fim do card de Listagem de Marcas-->
 
         </div>

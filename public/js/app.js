@@ -28966,35 +28966,41 @@ var render = function () {
             ]),
           }),
           _vm._v(" "),
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Listagem de Marcas"),
+          _c("card-component", {
+            attrs: { titulo: "Listagem de Marcas" },
+            scopedSlots: _vm._u([
+              {
+                key: "conteudo",
+                fn: function () {
+                  return [_c("table-component")]
+                },
+                proxy: true,
+              },
+              {
+                key: "rodape",
+                fn: function () {
+                  return [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary btn-sm ",
+                        attrs: { type: "button" },
+                      },
+                      [_vm._v("Adicionar")]
+                    ),
+                  ]
+                },
+                proxy: true,
+              },
             ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [_c("table-component")], 1),
-            _vm._v(" "),
-            _vm._m(0),
-          ]),
+          }),
         ],
         1
       ),
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-footer" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-primary btn-sm ", attrs: { type: "button" } },
-        [_vm._v("Adicionar")]
-      ),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
