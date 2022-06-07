@@ -43,7 +43,7 @@
                 <card-component titulo="Listagem de Marcas">
                     <template v-slot:conteudo>
                         <!--Enviando o componente marcas e o array titulo via Bind para o componente table-->
-                        <table-component :dados="marcas" :titulo="['ID', 'Nome' , 'Imagem']"></table-component>
+                        <table-component :dados="marcas" :titulo="['id', 'nome' , 'imagem']"></table-component>
                     </template>
 
                     <template v-slot:rodape>

@@ -3,16 +3,30 @@
          <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col" v-for="t, indice in titulo" :key="indice"> {{ t }} </th>
+                    <th scope="col" v-for="t, indice in titulo" :key="indice" class="text-uppercase"> {{ t }} </th>
                 </tr>
             </thead>
             <tbody>
-                <!--marcas e um varável auxiliar que irá armazenar as informações contidas em dados-->
-                <tr v-for="marcas in dados" :key="marcas.id">
+                <!--Objeto que irá armazenar as informações contidas em dados-->
+                <tr v-for="obj in dados" :key="obj.id">
+                    <template v-for="(valor, chave) in obj">
+                        <td v-if="titulo.includes(chave)"  :key="chave">
+                            <span v-if="chave == 'imagem'">
+                                <img :src="'/storage'+valor" width="30px" height="30px">
+                            </span>
+                            <span v-else>
+                                {{ valor }}
+                            </span>
+                        </td>
+                    </template>
+                    <!--
                     <th scope="row">{{ marcas.id }}</th>
                     <td>{{ marcas.nome }}</td>
+                    -->
                     <!--Adicionando a imagem utilizando a url que esta contida em marcas.imagem-->
-                    <td><img :src="'/storage/'+marcas.imagem " width="30px" height="30px"></td>
+                   <!--
+                   <td><img :src="'/storage/'+marcas.imagem " width="30px" height="30px"></td>
+                   -->
                 </tr>
             </tbody>
         </table>
