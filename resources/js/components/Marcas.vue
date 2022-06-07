@@ -119,6 +119,7 @@ import axios from 'axios'
     export default{
 
         computed:{
+            //Adicioando o token ao cabeçalho da requicição.
             token(){
                 let token = document.cookie.split(';').find(indice => {
                     return indice.startsWith('token=')
@@ -135,10 +136,29 @@ import axios from 'axios'
                 nomeMarca: '',
                 arquivoImagem: [],
                 transacaoStatus: '',
-                transacaoDetalhes: []
+                transacaoDetalhes: [],
+                marcas: []
             }
         },
         methods: {
+            carregarLista(){
+
+                let config = {
+                    headers: {
+                        'Accept' : 'application/json',
+                        'Authorization' : this.token
+                    }
+                }
+
+                axios.get(this.urlBase, config)
+                    .then(response => {
+                        this.marcas = response.data
+                        console.log(this.marcas)
+                    })
+                    .catch(errors => {
+                        console.log(response.data)
+                    })
+            },
             carregarImagem(e){
                 this.arquivoImagem = e.target.files
             },
@@ -166,10 +186,17 @@ import axios from 'axios'
                     })
                     .catch(errors => {          //catch() -> recebe os erros da requisição.
                         this.transacaoStatus = 'erro'
-                        this.transacaoDetalhes = errors.response
+                        this.transacaoDetalhes = {
+                            mensagem: errors.response.message,
+                            dados: errors.response.data.errors
+                        }
                         // console.log (errors.response.data.message)
                     })
             }
+        },
+        //metodo e chamando no momento que o componente marca e montado.
+        mounted(){
+            this.carregarLista()
         }
     }
 </script>
