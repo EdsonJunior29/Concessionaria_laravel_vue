@@ -8,6 +8,7 @@
             </thead>
             <tbody>
                 <!--Objeto que irá armazenar as informações contidas em dados-->
+                <!--Aula evitando dependência no componente Table-->
                 <tr v-for="obj in dados" :key="obj.id">
                     <template v-for="(valor, chave) in obj">
                         <td v-if="titulo.includes(chave)"  :key="chave">
@@ -19,14 +20,6 @@
                             </span>
                         </td>
                     </template>
-                    <!--
-                    <th scope="row">{{ marcas.id }}</th>
-                    <td>{{ marcas.nome }}</td>
-                    -->
-                    <!--Adicionando a imagem utilizando a url que esta contida em marcas.imagem-->
-                   <!--
-                   <td><img :src="'/storage/'+marcas.imagem " width="30px" height="30px"></td>
-                   -->
                 </tr>
             </tbody>
         </table>
