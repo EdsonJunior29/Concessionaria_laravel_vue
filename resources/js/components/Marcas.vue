@@ -42,7 +42,8 @@
 
                 <card-component titulo="Listagem de Marcas">
                     <template v-slot:conteudo>
-                        <table-component></table-component>
+                        <!--Enviando o componente marcas e o array titulo via Bind para o componente table-->
+                        <table-component :dados="marcas" :titulo="['ID', 'Nome' , 'Imagem']"></table-component>
                     </template>
 
                     <template v-slot:rodape>
@@ -143,6 +144,7 @@ import axios from 'axios'
         methods: {
             carregarLista(){
 
+                //Adicionando o token de autorização no cabeçalho da requisição GET
                 let config = {
                     headers: {
                         'Accept' : 'application/json',
@@ -153,7 +155,7 @@ import axios from 'axios'
                 axios.get(this.urlBase, config)
                     .then(response => {
                         this.marcas = response.data
-                        console.log(this.marcas)
+                       // console.log(this.marcas)
                     })
                     .catch(errors => {
                         console.log(response.data)
