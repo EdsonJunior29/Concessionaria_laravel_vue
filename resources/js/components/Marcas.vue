@@ -42,8 +42,15 @@
 
                 <card-component titulo="Listagem de Marcas">
                     <template v-slot:conteudo>
-                        <!--Enviando o componente marcas e o array titulo via Bind para o componente table-->
-                        <table-component :dados="marcas" :titulo="['id', 'nome' , 'imagem']"></table-component>
+                        <!--Enviando o componente marcas e o objeto titulos via Bind para o componente table-->
+                        <table-component
+                            :dados="marcas"
+                            :titulos="{
+                                id: {titulo: 'ID' , tipo: 'text'},
+                                nome: {titulo: 'Nome' , tipo: 'text'},
+                                imagem: {titulo: 'Imagem' , tipo: 'imagem'},
+                                created_at: {titulo: 'Data de Criação' , tipo: 'data'},
+                            }"></table-component>
                     </template>
 
                     <template v-slot:rodape>

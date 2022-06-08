@@ -3,7 +3,7 @@
          <table class="table table-hover">
             <thead>
                 <tr>
-                    <th scope="col" v-for="t, indice in titulo" :key="indice" class="text-uppercase"> {{ t }} </th>
+                    <th scope="col" v-for="t, indice in titulos" :key="indice"> {{ t.titulo }} </th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +29,7 @@
 <script>
     export default {
         // recebendo informações do componente marca via props
-        props:['dados', 'titulo']
+        props:['dados', 'titulos']
 
     }
 </script>
