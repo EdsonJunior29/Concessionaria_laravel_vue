@@ -44,7 +44,7 @@
                     <template v-slot:conteudo>
                         <!--Enviando o componente marcas e o objeto titulos via Bind para o componente table-->
                         <table-component
-                            :dados="marcas"
+                            :dados="marcas.data"
                             :titulos="{
                                 id: {titulo: 'ID' , tipo: 'texto'},
                                 nome: {titulo: 'Nome' , tipo: 'texto'},
@@ -146,7 +146,9 @@ import axios from 'axios'
                 arquivoImagem: [],
                 transacaoStatus: '',
                 transacaoDetalhes: [],
-                marcas: []
+                /*Corrigindo o erro : TypeError: Cannot read property 'map of undefined'
+                correção: Criando um objeto marcas com um array vazio*/
+                marcas: { data: [] }
             }
         },
         methods: {
