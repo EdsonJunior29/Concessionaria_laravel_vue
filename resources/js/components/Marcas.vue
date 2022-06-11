@@ -61,7 +61,7 @@
                         <!--Enviando o componente marcas e o objeto titulos via Bind para o componente table-->
                         <table-component
                             :dados="marcas.data"
-                            :visualizar = "true"
+                            :visualizar = "{visivel: true, dataBsToggle: 'modal',  dataBsTarget: '#modalMarcaVisualizar'}"
                             :atualizar = "true"
                             :remover = "true"
                             :titulos="{
@@ -98,6 +98,7 @@
 
             </div>
         </div>
+        <!-- início do  Modal para Adicionar Marcas -->
         <modal-component id="modalMarca" titulo="Adicionar Marca">
 
             <template v-slot:alertas>
@@ -154,6 +155,23 @@
                 <button type="button" class="btn btn-primary" @click="salvar()"> Salvar </button>
             </template>
         </modal-component>
+        <!--Fim  do Modal que adiciona marcas-->
+
+        <!-- Visualização de Marca -->
+
+        <modal-component id="modalMarcaVisualizar" titulo="Visualizar marca">
+
+            <template v-slot:alertas></template>
+
+             <template v-slot:conteudoModal></template>
+
+             <template v-slot:rodape>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Fechar </button>
+             </template>
+
+        </modal-component>
+
+        <!-- Fim do modal de Visualização de Marca-->
     </div>
 </template>
 
