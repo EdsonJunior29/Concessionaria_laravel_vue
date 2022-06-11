@@ -58,8 +58,11 @@
                         <div class="row">
                             <div class="col-10">
                                 <paginate-component>
-                                    <li v-for="obj, key in marcas.link" :key="key" class="page-item">
-                                        <a class="page-link" href="#" v-html="obj.label"></a>
+                                    <li v-for="obj, key in marcas.link" :key="key"
+                                        :class="obj.active ? 'page-item active' : 'page-item'"
+                                        @click="paginacao(obj)"
+                                    >
+                                        <a class="page-link" v-html="obj.label"></a>
                                     </li>
                                 </paginate-component>
                             </div>
@@ -219,6 +222,12 @@ import Paginate from './Paginate.vue'
                         }
                         // console.log (errors.response.data.message)
                     })
+            },
+            paginacao(obj){
+                if(obj.url){
+                    this.urlBase = obj.url //ajustando a url de consulta com o parâmetro de página
+                    this.carregarLista() //requisitando novamente os dados para nossa lista.
+                }
             }
         },
         //metodo e chamando no momento que o componente marca e montado.
