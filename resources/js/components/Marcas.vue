@@ -62,7 +62,7 @@
                         <table-component
                             :dados="marcas.data"
                             :visualizar = "{visivel: true, dataBsToggle: 'modal',  dataBsTarget: '#modalMarcaVisualizar'}"
-                            :atualizar = "true"
+                            :atualizar = "{visivel: true, dataBsToggle: 'modal',  dataBsTarget: '#modalMarcaAtualizar'}"
                             :remover = "{visivel: true, dataBsToggle: 'modal', dataBsTarget: '#modalMarcaRemover'}"
                             :titulos="{
                                 id: {titulo: 'ID' , tipo: 'texto'},
@@ -234,6 +234,69 @@
 
         </modal-component>
         <!--Fim do modal para remover Marcas-->
+
+
+        <!--Início do Modal de atualização de marcas-->
+       <modal-component id="modalMarcaAtualizar" titulo="Atualizar Marca">
+
+            <template v-slot:alertas>
+                <alert-component tipo="success" :detalhes="transacaoDetalhes"
+                    titulo="Cadastro Realizado com sucesso"
+                    v-if="transacaoStatus == 'adicionado'">
+                </alert-component>
+                <alert-component tipo="danger" :detalhes="transacaoDetalhes"
+                   titulo="Erro ao tentar cadastrar a marca"
+                    v-if="transacaoStatus == 'erro'">
+                </alert-component>
+            </template>
+
+            <template v-slot:conteudoModal>
+
+                <div class="form-group">
+                    <input-container-component
+                        titulo="Nome da marca"
+                        id="atualizarNome"
+                        id-help="atualizarNomeHelp"
+                        texto-help="Informe o Nome da Marca."
+                    >
+                        <input type="text"
+                            class="form-control"
+                            id="atualizarNome"
+                            aria-describedby="atualizarNomeHelp"
+                            placeholder="Nome da marca"
+                            v-model="nomeMarca"
+                        >
+                    </input-container-component>
+                </div>
+
+                <div class="form-group">
+                    <input-container-component
+                        titulo="Imagem"
+                        id="atualizarImagem"
+                        id-help="atualizarImagemHelp"
+                        texto-help="Selecione uma imagem no formato png."
+                    >
+                        <input type="file"
+                            class="form-control-file"
+                            id="atualizarImagem"
+                            aria-describedby="atualizarImagemHelp"
+                            placeholder="Selecione uma imagem."
+                            @change="carregarImagem($event)"
+                        >
+                    </input-container-component>
+                </div>
+
+            </template>
+
+            <template v-slot:rodape>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Fechar </button>
+                <button type="button" class="btn btn-primary" @click="atualizar()"> Atualizar </button>
+            </template>
+        </modal-component>
+
+        <!-- Fim do Modal de atualização de marcas-->
+
+
     </div>
 </template>
 
@@ -382,6 +445,9 @@ import InputContainer from './InputContainer.vue'
                         this.$store.state.transacao.status = 'erro'
                         this.$store.state.transacao.mensagem = errors.data.erro
                     })
+            },
+            atualizar(){
+
             }
         },
         //metodo e chamando no momento que o componente marca e montado.
