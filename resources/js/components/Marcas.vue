@@ -55,7 +55,20 @@
                     </template>
 
                     <template v-slot:rodape>
-                        <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalMarca">Adicionar</button>
+                        <div class="row">
+                            <div class="col-10">
+                                <paginate-component>
+                                    <li v-for="obj, key in marcas.link" :key="key" class="page-item">
+                                        <a class="page-link" href="#" v-html="obj.label"></a>
+                                    </li>
+                                </paginate-component>
+                            </div>
+                            <div class="col">
+                                <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalMarca">
+                                    Adicionar
+                                </button>
+                            </div>
+                        </div>
                     </template>
                 </card-component>
 
@@ -124,8 +137,10 @@
 
 <script>
 import axios from 'axios'
+import Paginate from './Paginate.vue'
 
     export default{
+  components: { Paginate },
 
         computed:{
             //Adicioando o token ao cabeçalho da requicição.
