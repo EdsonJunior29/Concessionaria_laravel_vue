@@ -264,7 +264,7 @@
                             id="atualizarNome"
                             aria-describedby="atualizarNomeHelp"
                             placeholder="Nome da marca"
-                            v-model="nomeMarca"
+                            v-model="$store.state.item.nome"
                         >
                     </input-container-component>
                 </div>
@@ -448,6 +448,29 @@ import InputContainer from './InputContainer.vue'
             },
             atualizar(){
 
+                let url = urlBase + '/' + this.$store.state.item.id
+
+                let formData = new FormData();
+                formData.append('_method', 'patch')
+                formData.append('nome', this.$store.state.item.nome)
+                formData.append('imagem', this.arquivoImagem[0])
+
+                 let config = {
+                    headers:{
+                        'Content-Type' : 'multipart/form-data',
+                        'Accept' : 'application/json',
+                        'Authorization' : this.token
+                    }
+                }
+
+                axios.post(url, formData, config)
+                    .then(resp => {
+                        console.log(resp)
+                        this.carregarLista()
+                    })
+                    .catch(errors => {
+                        console.log(errors)
+                    })
             }
         },
         //metodo e chamando no momento que o componente marca e montado.
