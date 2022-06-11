@@ -193,9 +193,24 @@
         <!-- Início do modal para remover marcas-->
          <modal-component id="modalMarcaRemover" titulo="Remover marca">
 
-            <template v-slot:alertas></template>
+            <template v-slot:alertas>
+                <alert-component v-if="$store.state.transacao.status == 'sucesso'"
+                    tipo="success"
+                    titulo="Remoção realizado com sucesso!"
+                    :detalhes="{mensagem: $store.state.transacao}"
+                >
+                </alert-component>
 
-             <template v-slot:conteudoModal>
+                <alert-component v-if="$store.state.transacao.status == 'erro'"
+                    tipo="danger"
+                    titulo="Erro na remoção!"
+                    :detalhes="{mensagem: $store.state.transacao}"
+                >
+                </alert-component>
+
+            </template>
+
+             <template v-slot:conteudoModal v-if="$store.state.transacao.status != 'sucesso'">
                  <input-container-component titulo="ID">
                     <input type="text" class="form-control" :value="$store.state.item.id" disabled>
                  </input-container-component>
@@ -207,7 +222,14 @@
 
              <template v-slot:rodape>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Fechar </button>
-                   <button type="button" class="btn btn-danger" @click="remover()"> Remover </button>
+
+                   <button v-if="$store.state.transacao.status != 'sucesso'"
+                        type="button"
+                        class="btn btn-danger"
+                        @click="remover()"
+                    >
+                        Remover
+                    </button>
              </template>
 
         </modal-component>
@@ -351,12 +373,14 @@ import InputContainer from './InputContainer.vue'
 
                 axios.post(url, formData, config)
                     .then(resp => {
-                        console.log('Resgistro removido com sucesso.', resp )
+                        this.$store.state.transacao.status = 'sucesso'
+                        this.$store.state.transacao.mensagem = resp.data.msg
                         //Atualizar a lista após a remoção
                         this.carregarLista()
                     })
                     .catch(errors => {
-                       return errors.resp.data.erro
+                        this.$store.state.transacao.status = 'erro'
+                        this.$store.state.transacao.mensagem = errors.data.erro
                     })
             }
         },
