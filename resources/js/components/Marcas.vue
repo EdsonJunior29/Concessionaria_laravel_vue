@@ -14,7 +14,13 @@
                                 id="inputId"
                                 id-help="idHelp"
                                 texto-help="Opcional. Informe o Id da marca">
-                                    <input type="number" class="form-control" id="inputId" aria-describedby="idHelp" placeholder="ID">
+                                    <input type="number"
+                                        class="form-control"
+                                        id="inputId"
+                                        aria-describedby="idHelp"
+                                        placeholder="ID"
+                                        v-model="busca.id"
+                                    >
                                 </input-container-component>
 
                             </div>
@@ -25,14 +31,24 @@
                                 id="inputNome"
                                 nome-help="nomeHelp"
                                 texto-help="Opcional. Informe o Nome da Marca.">
-                                    <input type="text" class="form-control" id="inputNome" aria-describedby="nomeHelp" placeholder="Nome da marca">
+                                    <input type="text"
+                                        class="form-control"
+                                        id="inputNome"
+                                        aria-describedby="nomeHelp"
+                                        placeholder="Nome da marca"
+                                        v-model="busca.nome"
+                                    >
                                 </input-container-component>
                             </div>
                         </div>
                     </template>
 
                     <template v-slot:rodape>
-                        <button type="submit" class="btn btn-primary btn-sm ">Pesquisar</button>
+                        <button type="submit"
+                            class="btn btn-primary btn-sm "
+                            @click="pesquisar()">
+                            Pesquisar
+                        </button>
                     </template>
                 </card-component>
 
@@ -166,7 +182,8 @@ import Paginate from './Paginate.vue'
                 transacaoDetalhes: [],
                 /*Corrigindo o erro : TypeError: Cannot read property 'map of undefined'
                 correção: Criando um objeto marcas com um array vazio*/
-                marcas: { data: [] }
+                marcas: { data: [] },
+                busca: {id: '', nome: ''}
             }
         },
         methods: {
@@ -228,6 +245,18 @@ import Paginate from './Paginate.vue'
                     this.urlBase = obj.url //ajustando a url de consulta com o parâmetro de página
                     this.carregarLista() //requisitando novamente os dados para nossa lista.
                 }
+            },
+            pesquisar(){
+                let filtro = ''
+                for(let chave in this.busca){
+                    if(this.busca[chave]){
+                    if(filtro != ''){
+                        filtro += ';'
+                    }
+                    filtro += chave + ':like' + this.busca[chave]
+                }
+                }
+
             }
         },
         //metodo e chamando no momento que o componente marca e montado.
