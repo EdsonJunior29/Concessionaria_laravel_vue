@@ -207,6 +207,7 @@
 
              <template v-slot:rodape>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Fechar </button>
+                   <button type="button" class="btn btn-danger" @click="remover()"> Remover </button>
              </template>
 
         </modal-component>
@@ -327,6 +328,36 @@ import InputContainer from './InputContainer.vue'
                     this.urlFiltro = ''
                 }
                 this.carregarLista()
+            },
+            remover(){
+                //dialogo de confirmação
+                let confirmacao = confirm('Tem certeza que deseja remover essa registro?')
+                if(!confirmacao) return false
+
+                //editando a url da requisição
+                let url = this.urlBase + '/' + $store.state.item.id
+
+                //passando os parâmetros para a requisição
+                let formData = new FormData();
+                formData.append('_method', 'delete')
+
+                //definir as configurações da requisição
+                let config = {
+                    headers:{
+                        'Accept' : 'application/json',
+                        'Authorization' : this.token
+                    }
+                }
+
+                axios.post(url, formData, config)
+                    .then(resp => {
+                        console.log('Resgistro removido com sucesso.', resp )
+                        //Atualizar a lista após a remoção
+                        this.carregarLista()
+                    })
+                    .catch(errors => {
+                       return errors.resp.data.erro
+                    })
             }
         },
         //metodo e chamando no momento que o componente marca e montado.
