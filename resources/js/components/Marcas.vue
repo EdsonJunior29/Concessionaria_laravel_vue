@@ -163,7 +163,24 @@
 
             <template v-slot:alertas></template>
 
-             <template v-slot:conteudoModal></template>
+             <template v-slot:conteudoModal>
+                 <input-container-component titulo="ID">
+                    <input type="text" class="form-control" :value="$store.state.item.id" disabled>
+                 </input-container-component>
+
+                 <input-container-component titulo="Nome da Marca">
+                    <input type="text" class="form-control" :value="$store.state.item.nome" disabled>
+                 </input-container-component>
+
+                 <input-container-component titulo="Imagem">
+                    <img :src="'/storage/'+ $store.state.item.imagem" alt="Imagem" v-if="$store.state.item.imagem">
+                 </input-container-component>
+
+                 <input-container-component titulo="Data de criação">
+                    <input type="text" class="form-control" :value="$store.state.item.created_at" disabled>
+                 </input-container-component>
+
+             </template>
 
              <template v-slot:rodape>
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> Fechar </button>
@@ -178,9 +195,10 @@
 <script>
 import axios from 'axios'
 import Paginate from './Paginate.vue'
+import InputContainer from './InputContainer.vue'
 
     export default{
-  components: { Paginate },
+  components: { Paginate, InputContainer },
 
         computed:{
             //Adicioando o token ao cabeçalho da requicição.

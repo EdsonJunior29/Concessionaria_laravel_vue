@@ -22,6 +22,7 @@
                             class="btn btn-outline-primary btn-sm"
                             :data-bs-toggle="visualizar.dataBsToggle"
                             :data-bs-target="visualizar.dataBsTarget"
+                            @click="setStore(obj)"
                         >
                             Visualizar
                         </button>
@@ -52,6 +53,11 @@
                     dadosFiltadros.push(itemFiltado)
                 })
                 return dadosFiltadros
+            }
+        },
+        methods: {
+            setStore(obj){
+                this.$store.state.item = obj
             }
         }
 
