@@ -176,6 +176,8 @@ import Paginate from './Paginate.vue'
         data(){
             return{
                 urlBase: 'http://localhost:8001/api/v1/marca',
+                urlPaginacao : '',
+                urlFiltro : '',
                 nomeMarca: '',
                 arquivoImagem: [],
                 transacaoStatus: '',
@@ -189,6 +191,7 @@ import Paginate from './Paginate.vue'
         methods: {
             carregarLista(){
 
+                let url = this.urlBase + '?' + this.urlPaginacao + this.urlFiltro
                 //Adicionando o token de autorização no cabeçalho da requisição GET
                 let config = {
                     headers: {
@@ -197,7 +200,7 @@ import Paginate from './Paginate.vue'
                     }
                 }
 
-                axios.get(this.urlBase, config)
+                axios.get(url, config)
                     .then(response => {
                         this.marcas = response.data
                        // console.log(this.marcas)
@@ -242,7 +245,7 @@ import Paginate from './Paginate.vue'
             },
             paginacao(obj){
                 if(obj.url){
-                    this.urlBase = obj.url //ajustando a url de consulta com o parâmetro de página
+                    this.urlPaginacao = obj.url.split('?')[1]
                     this.carregarLista() //requisitando novamente os dados para nossa lista.
                 }
             },
@@ -250,13 +253,19 @@ import Paginate from './Paginate.vue'
                 let filtro = ''
                 for(let chave in this.busca){
                     if(this.busca[chave]){
-                    if(filtro != ''){
-                        filtro += ';'
-                    }
-                    filtro += chave + ':like' + this.busca[chave]
+                        if(filtro != ''){
+                            filtro += ';'
+                        }
+                        filtro += chave + ':like' + this.busca[chave]
+                     }
                 }
+                if(filtro != ''){
+                    this.urlPaginacao = 'page=1'
+                    this.urlFiltro = '&filtro=' + filtro
+                } else {
+                    this.urlFiltro = ''
                 }
-
+                this.carregarLista()
             }
         },
         //metodo e chamando no momento que o componente marca e montado.
