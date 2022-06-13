@@ -453,7 +453,10 @@ import InputContainer from './InputContainer.vue'
                 let formData = new FormData();
                 formData.append('_method', 'patch')
                 formData.append('nome', this.$store.state.item.nome)
-                formData.append('imagem', this.arquivoImagem[0])
+
+                if(this.arquivoImagem[0]){
+                     formData.append('imagem', this.arquivoImagem[0])
+                }
 
                  let config = {
                     headers:{
@@ -465,7 +468,9 @@ import InputContainer from './InputContainer.vue'
 
                 axios.post(url, formData, config)
                     .then(resp => {
-                        console.log(resp)
+                        //console.log(resp)
+                        //Limpar o campo de seleção de arquivo
+                        novoImagem.value = ''
                         this.carregarLista()
                     })
                     .catch(errors => {
