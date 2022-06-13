@@ -240,14 +240,20 @@
        <modal-component id="modalMarcaAtualizar" titulo="Atualizar Marca">
 
             <template v-slot:alertas>
-                <alert-component tipo="success" :detalhes="transacaoDetalhes"
-                    titulo="Cadastro Realizado com sucesso"
-                    v-if="transacaoStatus == 'adicionado'">
+                <alert-component v-if="$store.state.transacao.status == 'sucesso'"
+                    tipo="success"
+                    titulo="Atualização realizado com sucesso!"
+                    :detalhes="{mensagem: $store.state.transacao}"
+                >
                 </alert-component>
-                <alert-component tipo="danger" :detalhes="transacaoDetalhes"
-                   titulo="Erro ao tentar cadastrar a marca"
-                    v-if="transacaoStatus == 'erro'">
+
+                <alert-component v-if="$store.state.transacao.status == 'erro'"
+                    tipo="danger"
+                    titulo="Erro de Atualização!"
+                    :detalhes="{mensagem: $store.state.transacao}"
+                >
                 </alert-component>
+
             </template>
 
             <template v-slot:conteudoModal>
@@ -471,10 +477,14 @@ import InputContainer from './InputContainer.vue'
                         //console.log(resp)
                         //Limpar o campo de seleção de arquivo
                         novoImagem.value = ''
+                        this.$store.state.transacao.status = 'sucesso'
+                        this.$store.state.transacao.mensagem = 'Registro atualizado com sucesso!'
                         this.carregarLista()
                     })
                     .catch(errors => {
-                        console.log(errors)
+                        this.$store.state.transacao.status = 'erro'
+                        this.$store.state.transacao.mensagem = errors.data.message
+                        this.$store.state.transacao.dados = errors.data.errors
                     })
             }
         },
