@@ -12,7 +12,7 @@
                 <tr v-for="obj, chave in dadosFiltrados" :key="chave">
                     <td v-for="valor, chaveValor in obj" :key="chaveValor">
                         <span v-if="titulos[chaveValor].tipo == 'texto'">{{ valor }}</span>
-                        <span v-if="titulos[chaveValor].tipo == 'data'">{{  }}</span>
+                        <span v-if="titulos[chaveValor].tipo == 'data'">{{ valor | formatDateTimeGlobal }}</span>
                         <span v-if="titulos[chaveValor].tipo == 'imagem'">
                             <img :src="'/storage/'+valor" width="30px" height="30px">
                         </span>
@@ -80,6 +80,5 @@
                 this.$store.state.transacao.dados = ''
             }
         }
-
     }
 </script>

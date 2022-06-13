@@ -47,6 +47,24 @@ Vue.component('paginate-component', require('./components/Paginate.vue').default
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+Vue.filter('formatDateTimeGlobal', function(data){
+    if(!data){
+        return ''
+    }
+
+    data = data.split('T')
+    let dataFormat = data [0]
+    let dataTime = data[1]
+
+    dataFormat = split('-')
+    dataFormat = dataFormat[2] + " / " + dataFormat[1] + " / " + dataFormat[0]
+
+    dataTime = split('.')
+    dataTime = dataTime[0]
+
+    return dataFormat + dataTime
+})
+
 const app = new Vue({
     el: '#app',
     store
