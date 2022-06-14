@@ -313,19 +313,6 @@ import InputContainer from './InputContainer.vue'
 
     export default{
   components: { Paginate, InputContainer },
-
-        computed:{
-            //Adicioando o token ao cabeçalho da requicição.
-            token(){
-                let token = document.cookie.split(';').find(indice => {
-                    return indice.startsWith('token=')
-                })
-                token = token.split('=')[1]
-                token = 'Bearer ' + token
-
-                return token
-            }
-        },
         data(){
             return{
                 urlBase: 'http://localhost:8001/api/v1/marca',
@@ -345,15 +332,8 @@ import InputContainer from './InputContainer.vue'
             carregarLista(){
 
                 let url = this.urlBase + '?' + this.urlPaginacao + this.urlFiltro
-                //Adicionando o token de autorização no cabeçalho da requisição GET
-                let config = {
-                    headers: {
-                        'Accept' : 'application/json',
-                        'Authorization' : this.token
-                    }
-                }
 
-                axios.get(url, config)
+                axios.get(url)
                     .then(response => {
                         this.marcas = response.data
                        // console.log(this.marcas)
@@ -375,9 +355,7 @@ import InputContainer from './InputContainer.vue'
 
                 let config = {
                     headers: {
-                        'Content-Type': 'multipart/form-data',
-                        'Accept': 'application/json',
-                        'Authorization': this.token
+                        'Content-Type': 'multipart/form-data'
                     }
                 }
 
@@ -432,15 +410,7 @@ import InputContainer from './InputContainer.vue'
                 let formData = new FormData();
                 formData.append('_method', 'delete')
 
-                //definir as configurações da requisição
-                let config = {
-                    headers:{
-                        'Accept' : 'application/json',
-                        'Authorization' : this.token
-                    }
-                }
-
-                axios.post(url, formData, config)
+                axios.post(url, formData)
                     .then(resp => {
                         this.$store.state.transacao.status = 'sucesso'
                         this.$store.state.transacao.mensagem = resp.data.msg
@@ -466,9 +436,7 @@ import InputContainer from './InputContainer.vue'
 
                  let config = {
                     headers:{
-                        'Content-Type' : 'multipart/form-data',
-                        'Accept' : 'application/json',
-                        'Authorization' : this.token
+                        'Content-Type' : 'multipart/form-data'
                     }
                 }
 

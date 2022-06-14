@@ -1,3 +1,5 @@
+const { default: axios } = require('axios');
+
 window._ = require('lodash');
 
 try {
@@ -30,3 +32,36 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/*Interceptar os request da aplicação */
+axios.interceptors.request.use(
+    config => {
+
+        //definir os parametros para as requisições
+        config.headers.Accept = 'application/json'
+
+        //Recuperando o token de autorização
+        let token = document.cookie.split(';').find(indice => {
+            return indice.includes('token=')
+        })
+        token = token.split('=')[1]
+        token = 'Bearer ' + token
+
+        config.headers.Authorization = token
+
+        return config
+    },
+    error => {
+        return Promise.reject(error)
+    }
+)
+
+//Interceptar os responses da aplicação
+axios.interceptors.response.use(
+    response => {
+        return response
+    },
+    error => {
+        return Promise.reject(error)
+    }
+)
